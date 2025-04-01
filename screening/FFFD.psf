@@ -1,0 +1,28 @@
+Input
+  mma(20);
+  desvio(2.0);
+  TipoMedia(0);
+
+var
+  upper_band_d0, lower_band_d0 : float;
+  upper_band_d1, lower_band_d1 : float;
+
+begin
+    // Tipo de média
+    // 0 - Aritmética 
+    // 1 - Exponencial 
+    // 2 - Welles Wilder 
+    // 3 - Ponderada 
+
+    upper_band_d0 := BollingerBands(desvio, mma, TipoMedia)|0|;
+    lower_band_d0 := BollingerBands(desvio, mma, TipoMedia)|1|;
+
+    upper_band_d1 := BollingerBands(desvio, mma, TipoMedia)[1]|0|;
+    lower_band_d1 := BollingerBands(desvio, mma, TipoMedia)[1]|1|;
+
+    // FFFD por cima
+    if ((Close[1] > upper_band_d1) and (Close < upper_band_d0)) then Select;
+
+    // FFFD por baixo
+    if ((Close[1] < lower_band_d1) and (Close > lower_band_d0)) then Select;
+end
