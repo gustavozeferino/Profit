@@ -21,7 +21,11 @@ begin
     lower_band_d1 := BollingerBands(desvio, mma, TipoMedia)[1]|1|;
 
     // FFFD por cima
-    if ((Close[1] > upper_band_d1) and (Close < upper_band_d0)) then Select;
+    if ((Close[1] > upper_band_d1) and (Close < upper_band_d0)) then
+    begin
+      Alert;
+      Select;
+    end;
 
     // FFFD por baixo
     if ((Close[1] < lower_band_d1) and (Close > lower_band_d0)) then Select;
